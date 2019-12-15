@@ -6,14 +6,19 @@
 
 ## reli.sh is a shell script wrapper that lets you customise your tools and shell experience.
 
-usage=$(cat <<EOU
+usage="""$(cat<<'ENDDOCS'
+================================================================================
+=                                                                              =
+=                                   Relish                                     =
+=                            Sauce for your Shell                              =
+=                                                                              =
+=     Relish is a porcelain for everyday shell operations like installing      =
+=      packages and configuration and managment of the shell environment.      =
+=                                                                              =
+=                                                                              =
+================================================================================
+ENDDOCS
 
-    reli.sh -- shell sauce
-
-
-
-EOU
-)
 
 ## Prerequisites
 
@@ -41,7 +46,12 @@ proxy_pass='cretins'
 
 ## Script Wrapper
 
+pkg=brew
+
 case $1 in
+  help)
+    echo $usage
+    ;;
   init)
     if [ -e $init ]
     then
@@ -50,6 +60,9 @@ case $1 in
       echo "relishing environment"
       sudo mkdir $init
     fi
+    ;;
+  install)
+    $pkg install $2
     ;;
 esac
 
@@ -60,5 +73,5 @@ echo "SHELL  IS $SHELL"
 
 sleep 600
 
-
+syslog -s -l7 Exit
 
